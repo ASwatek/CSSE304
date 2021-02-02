@@ -14,24 +14,24 @@
 	     )])
       (display-results correct answers equal?)))
 
-(define (test-set?-cps)
-    (let ([correct '(
-		     #f
-		     (#t #t)
-		     4
-		     )]
-          [answers 
-            (list 
-	     (set?-cps (quote (a b c b d)) 
-		       (make-k (lambda (v) v)))
-	     (set?-cps (quote (a b c)) 
-		       (make-k (lambda (v) 
-			 (set?-cps (quote ()) 
-				   (make-k (lambda (w) (list v w)))))))
-	     (set?-cps (quote (a b c a)) 
-		       (make-k (lambda (x) (if x 3 4))))
-	     )])
-      (display-results correct answers equal?)))
+; (define (test-set?-cps)
+    ; (let ([correct '(
+		     ; #f
+		     ; (#t #t)
+		     ; 4
+		     ; )]
+          ; [answers 
+            ; (list 
+	     ; (set?-cps (quote (a b c b d)) 
+		       ; (make-k (lambda (v) v)))
+	     ; (set?-cps (quote (a b c)) 
+		       ; (make-k (lambda (v) 
+			 ; (set?-cps (quote ()) 
+				   ; (make-k (lambda (w) (list v w)))))))
+	     ; (set?-cps (quote (a b c a)) 
+		       ; (make-k (lambda (x) (if x 3 4))))
+	     ; )])
+      ; (display-results correct answers equal?)))
 
 (define (test-1st-cps)
     (let ([correct '(
@@ -47,7 +47,7 @@
     (let ([correct '(
 		     4
 		     14
-		     (#t)
+		     ;(#t)
 		     #f
 	     )]
           [answers 
@@ -58,9 +58,9 @@
 			   (apply max (map (lambda (x) 
 					     (string->number x 16)) 
 					   (map symbol->string v))))))
-	     (set-of-cps '(a c b b c d a b) 
-			 (make-k (lambda (v) 
-			   (set?-cps v (make-k list)))))
+	    ; (set-of-cps '(a c b b c d a b) 
+			 ;(make-k (lambda (v) 
+			 ;  (set?-cps v (make-k list)))))
 	     (set-of-cps '(a c b b c d a b) 
 			 (make-k (lambda (v) 
 			   (member?-cps 'b v (make-k not)))))
@@ -70,7 +70,7 @@
 (define (test-map-cps)
     (let ([correct '(
 		     (4 3 2)
-		     ((#t #t #f #f #f))
+		     ;((#t #t #f #f #f))
 		     ((3 4 5 6) 3 4 5 6)
 		     )]
           [answers 
@@ -79,9 +79,9 @@
 			(apply-k k (add1 x))) 
 		      '(1 2 3) 
 		      (make-k reverse))
-	     (map-cps set?-cps 
-		      '((a b c) () (a b c b) (a b c c) (a b c a)) 
-		      (make-k list))
+	     ;(map-cps set?-cps 
+		    ;  '((a b c) () (a b c b) (a b c c) (a b c a)) 
+		    ;  (make-k list))
 	     (let ([add1-cps (make-cps add1)])
 	       (map-cps add1-cps '(1 2 3 4)
 			(make-k (lambda (v) 
@@ -95,7 +95,7 @@
     (let ([correct '(
 		     (4 4 1)
 		     #t
-		     "The result is a set"
+		     ;"The result is a set"
 		     (#f #f #t #f #t #t #t)
 		     )]
           [answers 
@@ -108,12 +108,12 @@
 	     (domain-cps '((1 3) (5 4) (1 5) (2 2) (3 6) (2 1)(4 4)) 
 			 (make-k (lambda (v)
 				   (member?-cps 6 v (make-k not)))))
-	     (domain-cps '((1 3) (5 4) (1 5) (2 2) (3 6) (2 1)(4 4)) 
-			 (make-k (lambda (v) 
-				   (set?-cps v 
-					     (make-k (lambda (vv) 
-				       (format "The result is ~aa set" 
-					       (if vv "" "not "))))))))
+	    ; (domain-cps '((1 3) (5 4) (1 5) (2 2) (3 6) (2 1)(4 4)) 
+			 ;(make-k (lambda (v) 
+				;   (set?-cps v 
+				;	     (make-k (lambda (vv) 
+				;       (format "The result is ~aa set" 
+				;	       (if vv "" "not "))))))))
 	     (domain-cps '((1 3) (5 4) (1 5) (2 2) (3 6) (2 14 4)) 
 			 (make-k (lambda (v) 
 			   (map-cps (lambda (x k) 
@@ -689,8 +689,8 @@
   (test-andmap-cps)  
 ; (display 'cps-snlist-recur) ; removed in 202020
 ;  (test-cps-snlist-recur)
-  (display 'free-vars-union-remove)
-  (test-free-vars-union-remove)
+  ;(display 'free-vars-union-remove)
+  ;(test-free-vars-union-remove)
   
 
  (display 'memoized-fib) 
